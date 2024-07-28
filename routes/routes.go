@@ -14,7 +14,7 @@ func SetupRouter() *gin.Engine {
 	{
 		Api.GET("/", controllers.GetApi)
 		Api.POST("/login", controllers.Login)
-		Api.POST("/register", controllers.Register)
+		Api.POST("/signup", controllers.SignUp)
 
 		Inventory := Api.Group("/inventory")
 		Inventory.Use(middlewares.Authorization())
