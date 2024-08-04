@@ -21,9 +21,18 @@ func SetupDatabase() {
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?%s", u, p, h, n, q)
 
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
+		// Logger: logger.Default.LogMode(logger.Info),
+		// DryRun: true,
+	})
 
-	db.AutoMigrate(&models.User{}, &models.Inventory{}, &models.Customer{})
+	db.AutoMigrate(
+		&models.User{},
+		&models.Inventory{},
+		&models.Customer{},
+		&models.Order{},
+		&models.OrderItem{},
+	)
 
 	if err != nil {
 		panic("Could not open database connection")

@@ -104,7 +104,7 @@ func DeleteInventory(c *gin.Context) {
 
 func UpdateInventory(c *gin.Context) {
 
-	var updatedInventory models.Inventory
+	var updatedInventory map[string]interface{}
 	id := c.Param("id")
 
 	if err := c.ShouldBindJSON(&updatedInventory); err != nil {

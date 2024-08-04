@@ -5,10 +5,11 @@ import (
 )
 
 type Customer struct {
-	ID          uint      `json:"id" gorm:"primary_key"`
+	CustomerID  uint      `json:"customer_id" gorm:"column:customer_id;primary_key;autoIncrement"`
 	Name        string    `json:"name"`
 	PhoneNumber string    `json:"phone_number"`
-	Category    string    `json:"category`
+	Category    string    `json:"category"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
+	Order       []Order
 }

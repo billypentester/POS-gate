@@ -12,10 +12,12 @@ func SetupRouter() *gin.Engine {
 
 	Api := r.Group("/api")
 	{
+		// auth
 		Api.GET("/", controllers.GetApi)
 		Api.POST("/login", controllers.Login)
 		Api.POST("/signup", controllers.SignUp)
 
+		// products
 		Inventory := Api.Group("/inventory")
 		Inventory.Use(middlewares.Authorization())
 		{
@@ -26,6 +28,7 @@ func SetupRouter() *gin.Engine {
 			Inventory.PATCH("/:id", controllers.UpdateInventory)
 		}
 
+		// customers
 		Customer := Api.Group("/customer")
 		Customer.Use(middlewares.Authorization())
 		{
@@ -34,6 +37,17 @@ func SetupRouter() *gin.Engine {
 			Customer.POST("/", controllers.CreateCustomer)
 			Customer.DELETE("/:id", controllers.DeleteCustomer)
 			Customer.PATCH("/:id", controllers.UpdateCustomer)
+		}
+
+		// orders
+		Order := Api.Group("/order")
+		Order.Use(middlewares.Authorization())
+		{
+			Order.GET("/", controllers.GetOrders)
+			Order.GET("/:id", controllers.GetCustomer)
+			Order.POST("/", controllers.CreateOrder)
+			Order.DELETE("/:id", controllers.DeleteCustomer)
+			Order.PATCH("/:id", controllers.UpdateCustomer)
 		}
 
 	}
